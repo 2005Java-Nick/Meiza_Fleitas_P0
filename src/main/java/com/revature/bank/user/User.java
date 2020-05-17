@@ -8,9 +8,9 @@ import com.revature.bank.dao.CustomerDAOSerialization;
 
 public class User implements Serializable{
 	
-	protected String firstName;
-	protected String lastName;
-	protected String password;
+	private String firstName;
+	private String lastName;
+	private String password;
 	
 	public User(String firstName, String lastName, String password) {
 		this.firstName = firstName;

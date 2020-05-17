@@ -1,47 +1,73 @@
 package com.revature.bank.bank;
+import com.revature.bank.util.AuthenticateCustomer;
+import com.revature.bank.util.DataSource;
+
 
 import java.util.Scanner;
+
+
 
 import com.revature.bank.user.Customer;
 
 
 
 public class Bank {
-//	Can't get it to work yet
-//	private static CustomerDAO customerDao = new CustomerDAOSerialization();
+
 	
-	private String accountType;
-	private static String password;
-	private static String email;	
+	private String password;
+	private String email;	
 	static String choice;
 	private static double amount;
 
+
 	static Scanner scan = new Scanner(System.in);
+	DataSource datasource = new DataSource();
 	
 	public Bank() {
 		
 	}
 	
-	public Bank(String accountType) {
-		this.accountType = accountType;
+	public Bank(String email, String password) {
+		this.email = email;
+		this.password = password;
 	}
 
-	public String getAccountType() {
-		return accountType;
-	}
 
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
-	
 	public void setchoice(String choice) {
 		Bank.choice = choice;
 	}
+	
 	public static String getChoice() {
 		return choice;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
-	public static String mainMenu() {
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public static String getAuthCustomer() {
+		return choice;
+	}
+
+//	Customer savedCustomer = new Customer("Marc", "Smith", "pass", "email", 30.00);
+	
+	static Customer thisCustomer = new Customer();
+	
+	
+	public String mainMenu() {
 
 		System.out.println("Welcome to TheBank!");
 		System.out.println("What would you like to do?");
@@ -53,10 +79,11 @@ public class Bank {
 		
 		return choice;
 	}
+
 	
-	
-	public static void inputNewUserAccount() {
-	
+	public Customer inputNewUserAccount() {
+		
+//		Customer newCustomer = new Customer();
 		
 		System.out.print("Enter First Name: ");
 		String firstName = scan.nextLine();
@@ -67,29 +94,24 @@ public class Bank {
 		System.out.print("Create password: ");
 		String password= scan.nextLine();
 		
-		String inputUser = firstName + "," + lastName + "," + email + "," + password;
-
-		System.out.println(inputUser);
-
+		
+		Customer customer = new Customer(firstName, lastName, password, email, 30.00);
+		return customer;
 	}
 	
-
-	public static void login() {
 		
+
+	public void login() {
 		
 		System.out.println("Enter Email(User name): ");
 		email = scan.nextLine();
-		Customer inputEmail = new Customer();
-		inputEmail.setEmail(email);
 		System.out.println("Enter Password: ");
 		password = scan.nextLine();
-		Customer inputPassword = new Customer();
-		inputPassword.setPassword(password);
-
 		
+		//Check for authentication between database and customer login info
+		
+		while ((AuthenticateCustomer.isAuthorized(email, password) == true) && (choice != "0")) {
 
-		while ((isAuthorized() == true) && (choice != "0")) {
-//			System.out.println((isAuthorized()));
 			signedMenu();
 				switch (choice) {
 				case "0":
@@ -97,18 +119,20 @@ public class Bank {
 					login();
 				case "1": 
 					System.out.println("Enter the amount to deposit");
-					deposit(amount);
+					amount = scan.nextDouble();
+					thisCustomer.deposit(amount);
 					break;
 				case "2":
 					System.out.println("Enter the amount to withdraw");
-					withraw(amount);
+					amount = scan.nextDouble();
+					thisCustomer.withdraw(amount);
 					break;
 				default:
 					System.out.println("Wrong choice, please try again");
 					break;
 				}
 //				scan.hasNextLine();
-//				choice = scan.nextLine();
+				scan.nextLine();
 				
 			}
 		scan.close();
@@ -131,43 +155,7 @@ public class Bank {
 		return choice;
 	}
 
-	public static boolean isAuthorized(){
-		String filePassword = "pass";
-		String fileEmail = "email";
-		
-		if(filePassword.equals(password) && fileEmail.equals(email)) {
-			System.out.println("you are logged in");
-			return true;
-		}
-		System.out.println("Wrong name or password, please try again.");
-		login();
-		return false;
-	}
-	
-	public static double deposit(double amount) {
-		double balance = 30.00;
-		amount = scan.nextDouble();
-		balance =+ amount;
-		scan.nextLine();
-		System.out.println("You have deposited " + balance);
-		signedMenu();
-		return balance;
-	}
-	
-	public static double withraw(double amount) {
 
-		String scannedBalance = scan.nextLine();
-		amount = Double.parseDouble(scannedBalance);
-		double balance = 30.00;
-		if (balance > amount) {
-		balance =- amount;
-		signedMenu();
-		return balance;
-		}
-		System.out.println("You don't have sufficient funds for this withdraw amount.");
-		return 0;
-	} 
-	
 	
 	
 }

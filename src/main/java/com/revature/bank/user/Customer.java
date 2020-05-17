@@ -1,58 +1,93 @@
 package com.revature.bank.user;
 
-import java.io.Serializable;
+import com.revature.bank.util.DataSource;
 
-public class Customer extends User implements Serializable{
+public class Customer{
 	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String email;
-	private String customer;
+	private String customerFirstName;
+	private String customerLastName;
+	private String customerEmail;
+	private String customerPassword;
+	private double customerBalance;
 	
 	public Customer() {
-		super();
-	}
-	
-	
-	public Customer(String firstName, String lastName, String password, String email, String customer) {
-		super(firstName, lastName, password);
-		this.email = email;
-		this.customer = customer;
-	}
-
-
-	public Customer(String firstName, String lastName, String password) {
-		super(firstName, lastName, password);
 		
 	}
 	
-	public Customer(String email, String password) {
-		this.email = email;
-		this.password = password;
+	public Customer(String customerFirstName, String customerLastName, String customerEmail, String customerPassword,
+			double customerBalance) {
+		super();
+		this.customerFirstName = customerFirstName;
+		this.customerLastName = customerLastName;
+		this.customerEmail = customerEmail;
+		this.customerPassword = customerPassword;
+		this.customerBalance = customerBalance;
+	}
+
+	public Customer(String customerEmail, String customerPassword) {
+		super();
+		this.customerEmail = customerEmail;
+		this.customerPassword = customerPassword;
+
 	}
 	
-	public String getEmail() {
-		return email;
+	static DataSource customerData = new DataSource();
+	
+	public String getCustomerFirstName() {
+		return customerFirstName;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setCustomerFirstName(String customerFirstName) {
+		this.customerFirstName = customerFirstName;
+	}
+
+	public String getCustomerLastName() {
+		return customerLastName;
+	}
+
+	public void setCustomerLastName(String customerLastName) {
+		this.customerLastName = customerLastName;
+	}
+
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+
+	public void setCustomerEmail(String customerEmail) {
+		this.customerEmail = customerEmail;
+	}
+
+	public String getCustomerPassword() {
+		return customerPassword;
+	}
+
+	public void setCustomerPassword(String customerPassword) {
+		this.customerPassword = customerPassword;
+	}
+
+	public double getCustomerBalance() {
+		return customerBalance;
+	}
+
+	public void setCustomerBalance(double customerBalance) {
+		this.customerBalance = customerBalance;
 	}
 	
-	public String getCustomer() {
-		return customer;
+	public void deposit(double amount) {
+		this.customerBalance = DataSource.queryCustomerBalance();
+		this.customerBalance += amount;
+		System.out.println("Deposit of " + amount + " made. New balance is " + this.customerBalance);
 	}
 	
-	public String setCustomer(String c) {
-		String customer = getFirstName() + "," + getLastName() + "," + getEmail() + "," + getPassword();
-		return customer;
-	}
+    public void withdraw(double amount) {
+    	this.customerBalance = DataSource.queryCustomerBalance();
+        if(this.customerBalance - amount <= 0) {
+            System.out.println("Only " + customerBalance + " is available. Withdrawal not processed");
+        } else {
+            this.customerBalance -= amount;
+            System.out.println("Withdrawal of " + amount + " processed, Remaining balance = " + this.customerBalance);
+        }
+    }
 	
-//	public String setCustomer(Customer c) {
-//		String customer = getFirstName() + "," + getLastName() + "," + getEmail() + "," + getPassword();
-//		return customer;
-//	}
-	
+
 }

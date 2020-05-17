@@ -2,23 +2,29 @@ package com.revature.bank.main;
 
 
 import com.revature.bank.bank.Bank;
-import com.revature.bank.user.Customer;
+
 
 
 public class BankDriver {
-	Customer customer = new Customer();
+
+
+//	
+//	Customer newCustomer = new Customer(firstName, lastName, password, email, customerBalance)
+	
 	public static void main (String[] args) {
 //		static Scanner scan = new Scanner(System.in);
 		
-		Bank.mainMenu();
+		Bank thisBank = new Bank();
+		
+		thisBank.mainMenu();
 		
 		if(Bank.getChoice() == "2") {
 		
-			Bank.inputNewUserAccount();
+			thisBank.inputNewUserAccount();
 			
 		} else {
 
-			Bank.login();
+			thisBank.login();
 
 		}
 		
