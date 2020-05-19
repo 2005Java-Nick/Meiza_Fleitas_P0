@@ -1,7 +1,4 @@
-package com.revature.bank.bank;
-
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.doubleThat;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,10 +7,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.revature.bank.user.Customer;
-import com.revature.bank.user.User;
+import com.revature.bank.util.AuthenticateCustomer;
 
-public class BankTest {
-	Customer customer = new Customer("Jack", "Smith", "email", "pass", 1000.00);
+public class AuthenticateCustomerTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -31,9 +27,9 @@ public class BankTest {
 	public void tearDown() throws Exception {
 	}
 
-		@Test
-	public void deposit() throws Exception{
-
+	@Test
+	public void isAuthorized_true() {
+		assertTrue(AuthenticateCustomer.isAuthorized("email", "pass"));
 	}
 
 }

@@ -5,8 +5,6 @@ import com.revature.bank.util.DataSource;
 
 import java.util.Scanner;
 
-
-
 import com.revature.bank.user.Customer;
 
 
@@ -61,8 +59,6 @@ public class Bank {
 	public static String getAuthCustomer() {
 		return choice;
 	}
-
-//	Customer savedCustomer = new Customer("Marc", "Smith", "pass", "email", 30.00);
 	
 	static Customer thisCustomer = new Customer();
 	
@@ -82,9 +78,7 @@ public class Bank {
 
 	
 	public Customer inputNewUserAccount() {
-		
-//		Customer newCustomer = new Customer();
-		
+				
 		System.out.print("Enter First Name: ");
 		String firstName = scan.nextLine();
 		System.out.print("Enter Last Name: ");
@@ -154,8 +148,4 @@ public class Bank {
 
 		return choice;
 	}
-
-
-	
-	
 }

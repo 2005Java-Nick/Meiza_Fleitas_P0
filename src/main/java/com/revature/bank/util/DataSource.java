@@ -28,7 +28,7 @@ public class DataSource {
 	}
 	
 	public static double queryCustomerBalance(){
-		double databaseCustomerBalance = 30.00;
+		double databaseCustomerBalance = 1000.00;
 		
 		return databaseCustomerBalance;
 	}
